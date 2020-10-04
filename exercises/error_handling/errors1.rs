@@ -6,14 +6,14 @@
 // this function to have.
 // Execute `rustlings hint errors1` for hints!
 
-// I AM NOT DONE
+use std::cmp::Ordering;
 
-pub fn generate_nametag_text(name: String) -> Option<String> {
-    if name.len() > 0 {
-        Some(format!("Hi! My name is {}", name))
-    } else {
-        // Empty names aren't allowed.
-        None
+pub fn generate_nametag_text(name: String) -> Result<String, String> {
+    let length = name.len();
+    match &length.cmp(&0) {
+        Ordering::Less => Err("`name` was negative length, no idea how you pulled that one off".into()),
+        Ordering::Greater => Ok(format!("Hi! My name is {}", name)),
+        Ordering::Equal => Err("`name` was empty; it must be nonempty.".into()),
     }
 }
 
@@ -28,7 +28,7 @@ mod tests {
     fn generates_nametag_text_for_a_nonempty_name() {
         assert_eq!(
             generate_nametag_text("Beyoncé".into()),
-            Some("Hi! My name is Beyoncé".into())
+            Ok("Hi! My name is Beyoncé".into())
         );
     }
 
