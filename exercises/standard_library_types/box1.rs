@@ -16,11 +16,9 @@
 //
 // Execute `rustlings hint box1` for hints :)
 
-// I AM NOT DONE
-
 #[derive(PartialEq, Debug)]
 pub enum List {
-    Cons(i32, List),
+    Cons(i32, Box<List>), // Boxing the list type switches to allocating space dynamically on the stack
     Nil,
 }
 
@@ -33,11 +31,11 @@ fn main() {
 }
 
 pub fn create_empty_list() -> List {
-    unimplemented!()
+    List::Nil
 }
 
 pub fn create_non_empty_list() -> List {
-    unimplemented!()
+    List::Cons(23, Box::new(List::Nil))
 }
 
 #[cfg(test)]
